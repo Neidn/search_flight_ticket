@@ -1,0 +1,10 @@
+# Test Dependencies
+pynose
+pinocchio
+factory-boy
+
+# Code Coverage
+coverage
+
+requests
+
