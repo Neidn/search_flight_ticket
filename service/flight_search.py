@@ -1,7 +1,11 @@
 # Get city name from user input
 # Convert city name to IATA code
 # Use IATA code to get flight data from Sheety
+import os
+
 import requests
+
+KIWI_API_KEY = os.getenv("KIWI_API_KEY")
 
 
 class FlightSearch:
@@ -16,5 +20,4 @@ class FlightSearch:
         """
 
     def get_iata_code(self, city):
-
         return "Testing IATA code"

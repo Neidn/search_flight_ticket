@@ -1,7 +1,8 @@
+import os
 from pprint import pprint
 import requests
 
-URL = 'https://api.sheety.co/12629eb4ff41812f7e18fbf1372a8e11/flightDeals/prices'
+URL = os.getenv("SHEETY_URL")
 
 
 class DataManager:
