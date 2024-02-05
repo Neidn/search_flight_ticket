@@ -5,7 +5,7 @@
 import unittest
 from unittest import mock
 
-from .factories import FlightDataFactory
+import random
 from service.data_manager import DataManager
 
 
@@ -39,3 +39,22 @@ class TestDataManager(unittest.TestCase):
         data = self.data_manager.get_data()
         self.assertIsInstance(data, list)
         self.assertTrue(len(data) > 0)
+
+    def test_update_iata_code(self):
+        """Test update_iata_code method"""
+        data = self.data_manager.get_data()
+
+        random_index = random.randint(0, len(data) - 1)
+
+        row_id = data[random_index]['id']
+        test_case = data[random_index]
+        before_iata_code = test_case['iataCode']
+        new_iata_code = "TEST"
+        response = self.data_manager.update_iata_code(row_id, new_iata_code)
+        self.assertIsInstance(response, dict)
+        self.assertEqual(response['price']['id'], row_id)
+
+        # Rollback
+        response = self.data_manager.update_iata_code(row_id, before_iata_code)
+        self.assertIsInstance(response, dict)
+        self.assertEqual(response['price']['id'], row_id)

@@ -4,12 +4,14 @@ import os
 from .data_manager import DataManager
 from .flight_search import FlightSearch
 from .flight_data import FlightData
+from .notification_manager import NotificationManager
 
 
 def main():
     departure_city_iata = os.getenv("DEPARTURE_CITY_IATA")
     data_manager = DataManager()
     flight_search = FlightSearch()
+    notification_manager = NotificationManager()
 
     sheet_data = data_manager.get_data()
 
@@ -26,4 +28,4 @@ def main():
         if flight_data.price < sheet_data[i]['lowestPrice']:
             msg = f"Low price alert! Only ${flight_data.price} to fly from {flight_data.origin_city}-{flight_data.origin_airport} to {flight_data.destination_city}-{flight_data.destination_airport}, from {flight_data.departure_date} to {flight_data.return_date}."
             print(msg)
-            # data_manager.send_sms(msg, '+1234567890')
+            # notification_manager.send_sms(msg, '+1234567890')
