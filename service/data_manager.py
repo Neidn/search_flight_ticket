@@ -25,5 +25,5 @@ class DataManager:
         }
         response = requests.put(url=f"{URL}/{row_id}", json=body)
         response.raise_for_status()
-        pprint(response.json())
+
         return response.json()
