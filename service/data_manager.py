@@ -17,7 +17,7 @@ class DataManager:
         self.data = response.json()
         self.data = self.data['prices']
 
-    def get_data(self) -> dict:
+    def get_data(self) -> list:
         return self.data
 
     def update_iata_code(self, row_id: int, iata_code: str) -> dict:
