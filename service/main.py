@@ -26,4 +26,4 @@ def main():
         if flight_data.price < sheet_data[i]['lowestPrice']:
             msg = f"Low price alert! Only ${flight_data.price} to fly from {flight_data.origin_city}-{flight_data.origin_airport} to {flight_data.destination_city}-{flight_data.destination_airport}, from {flight_data.departure_date} to {flight_data.return_date}."
             print(msg)
-            # data_manager.send_sms(msg)
+            # data_manager.send_sms(msg, '+1234567890')
