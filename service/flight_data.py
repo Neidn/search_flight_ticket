@@ -20,3 +20,10 @@ class FlightData:
 
         self.departure_date = self.departure_route[0]['local_departure'].split("T")[0]
         self.return_date = self.return_route[0]['local_departure'].split("T")[0]
+
+        # check if route has a stopover
+        # default length is 2
+        self.stop_overs = 0
+        if length > 2:
+            self.stop_overs = length - 2
+            self.via_city = self.departure_route[1]['cityTo']

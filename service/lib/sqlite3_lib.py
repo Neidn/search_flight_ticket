@@ -7,6 +7,8 @@ class DBClass(object):
         self.db = None
         self.cursor = None
 
+        self.open(sqlite3_name)
+
     def open(self, sqlite3_name):
         self.sqlite3_dbname = sqlite3_name
         self.db = sqlite3.connect(self.sqlite3_dbname)
@@ -36,7 +38,7 @@ class DBClass(object):
         return self.sql_exec(create_table_sql)
 
     def drop_table(self, table_name):
-        drop_table_sql = "drop table " + table_name
+        drop_table_sql = "drop table if exists " + table_name
         return self.sql_exec(drop_table_sql)
 
     def sqlite_insert_data(self, table_name, values):

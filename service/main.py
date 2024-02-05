@@ -5,6 +5,7 @@ from .data_manager import DataManager
 from .flight_search import FlightSearch
 from .flight_data import FlightData
 from .notification_manager import NotificationManager
+from .user_data import UserData
 
 
 def main():
@@ -12,6 +13,8 @@ def main():
     data_manager = DataManager()
     flight_search = FlightSearch()
     notification_manager = NotificationManager()
+    user_data = UserData(os.getenv('USER_DATABASE_NAME'))
+    user_list = user_data.query_all_user()
 
     sheet_data = data_manager.get_data()
 
@@ -27,5 +30,12 @@ def main():
 
         if flight_data.price < sheet_data[i]['lowestPrice']:
             msg = f"Low price alert! Only ${flight_data.price} to fly from {flight_data.origin_city}-{flight_data.origin_airport} to {flight_data.destination_city}-{flight_data.destination_airport}, from {flight_data.departure_date} to {flight_data.return_date}."
-            print(msg)
             # notification_manager.send_sms(msg, '+1234567890')
+
+            # if route has a stopover, show msg with stopover city
+            if flight_data.stop_overs > 0:
+                msg += "\n"
+                msg += f"Flight has {flight_data.stop_overs} stop over, via {flight_data.via_city}."
+
+            for user in user_list:
+                notification_manager.send_email(msg, user['email'])

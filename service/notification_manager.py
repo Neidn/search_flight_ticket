@@ -1,4 +1,5 @@
 import os
+import smtplib
 
 from twilio.rest import Client
 
@@ -22,3 +23,15 @@ class NotificationManager:
         )
 
         return True if message.sid else False
+
+    def send_email(self, message: str, target_email: str) -> bool:
+        with smtplib.SMTP("smtp.gmail.com", port=587) as connection:
+            connection.starttls()
+            connection.login(user=os.getenv("MY_EMAIL"), password=os.getenv("EMAIL_PASSWORD"))
+            result = connection.sendmail(
+                from_addr=os.getenv("MY_EMAIL"),
+                to_addrs=target_email,
+                msg=f"Subject:Flight Deal!\n\n{message}"
+            )
+
+            return True if not result else False

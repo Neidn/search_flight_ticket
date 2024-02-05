@@ -65,7 +65,8 @@ class FlightSearch:
 
         data = response.json()
 
-        if len(data['data']) == 0:
+        if len(data['data']) < 1:
+            print(f"No flights found for {destination_city}")
             return None
 
         return data['data'][0]
