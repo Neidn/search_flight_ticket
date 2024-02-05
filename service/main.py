@@ -7,6 +7,7 @@ from .flight_data import FlightData
 
 
 def main():
+    departure_city_iata = os.getenv("DEPARTURE_CITY_IATA")
     data_manager = DataManager()
     flight_search = FlightSearch()
 
@@ -17,7 +18,7 @@ def main():
             sheet_data[i]['iataCode'] = flight_search.get_iata_code(sheet_data[i]['city'])
             data_manager.update_iata_code(sheet_data[i]['id'], sheet_data[i]['iataCode'])
 
-        data = flight_search.get_flight_data("LON", sheet_data[i]['iataCode'])
+        data = flight_search.get_flight_data(departure_city_iata, sheet_data[i]['iataCode'])
         if not data:
             continue
         flight_data = FlightData(data)
